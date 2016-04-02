@@ -1,5 +1,9 @@
 # About
 
+For some reason the hungarian keyboard layout that comes with mac machines is completely wrong since ancient times. It isn't only a few special characters that don't match the standard hungarian layout: the builtin hungarian layout of mac has nothing to do with the hungarian layout used by other platforms (e.g.: PC). This is the reason for the existence of this custom layout file that sets up the "real" hungarian layout on mac.
+
+# Usage
+
 Copy the keylayout file into `/Library/Keyboard Layouts/` and you can then
 select the new layout from System Preferences > Language & Text > Input Sources
 
