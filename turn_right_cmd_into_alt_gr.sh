@@ -22,13 +22,18 @@ PRODUCT_ID=628
 # If you have more than one keyboards...
 KEYBOARD_NUMBER=0
 
-# Turning the RightCommand into a RightAlt (RightOption) key:
-defaults -currentHost write -g com.apple.keyboard.modifiermapping.$VENDOR_ID-$PRODUCT_ID-$KEYBOARD_NUMBER -array-add '
+SETTING='
 <dict>
 	<key>HIDKeyboardModifierMappingDst</key><integer>11</integer>
 	<key>HIDKeyboardModifierMappingSrc</key><integer>12</integer>
 </dict>
 '
+
+# Turning the RightCommand into a RightAlt (RightOption) key:
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.$VENDOR_ID-$PRODUCT_ID-$KEYBOARD_NUMBER -array-add "$SETTING"
+
+# Wireless magic keyboard:
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handler_id-50 -array-add "$SETTING"
 
 # You can undo the changes by executing the following command and then logging off/on:
 # defaults -currentHost delete -g com.apple.keyboard.modifiermapping.$VENDOR_ID-$PRODUCT_ID-$KEYBOARD_NUMBER
