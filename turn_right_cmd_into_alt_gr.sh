@@ -7,36 +7,65 @@
 # reach with the right thumb.
 # For convenience this script turns your RightCommand key into another RightAlt (RightOption) key.
 # The LeftCommand and RightAlt keys are left unaffected.
-# Before using this script you may have to modify it by adjusting the VENDOR_ID and PRODUCT_ID
-# variables below. After executing the script you have to log off/on.
-#
-# This solution is based on the following stackoverflow answer:
-# http://apple.stackexchange.com/a/88096
 
-# You have to find out the vendor and product ids of your keyboard using the
-# ioreg command as specified in the linked stackoverflow answer:
-# ioreg -n IOHIDKeyboard -r | grep -e 'class IOHIDKeyboard' -e VendorID\" -e Product
-VENDOR_ID=1452
-PRODUCT_ID=628
+# Info about the whole thing (including the list of key codes)
+# https://developer.apple.com/library/content/technotes/tn2450/_index.html
 
-# If you have more than one keyboards...
-KEYBOARD_NUMBER=0
+# An easy way to find out the ID of a keyboard is going to the
+# System Preferences > Keyboard > Modifier Keys ...
+# changing a few modifier keys for the given keyboard and then checking
+# the saved settings with the `defaults -currentHost read -g` command.
 
-SETTING='
+RIGHT_ALT_TO_RIGHT_CMD='
 <dict>
-	<key>HIDKeyboardModifierMappingDst</key><integer>11</integer>
-	<key>HIDKeyboardModifierMappingSrc</key><integer>12</integer>
+	<key>HIDKeyboardModifierMappingDst</key><integer>30064771302</integer>
+	<key>HIDKeyboardModifierMappingSrc</key><integer>30064771303</integer>
+</dict>
+'
+
+RIGHT_CMD_TO_RIGHT_ALT='
+<dict>
+	<key>HIDKeyboardModifierMappingDst</key><integer>30064771303</integer>
+	<key>HIDKeyboardModifierMappingSrc</key><integer>30064771302</integer>
 </dict>
 '
 
 # Turning the RightCommand into a RightAlt (RightOption) key:
-defaults -currentHost write -g com.apple.keyboard.modifiermapping.$VENDOR_ID-$PRODUCT_ID-$KEYBOARD_NUMBER -array-add "$SETTING"
+defaults -currentHost delete -g com.apple.keyboard.modifiermapping.1452-628-0
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.1452-628-0 -array-add "$RIGHT_ALT_TO_RIGHT_CMD"
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.1452-628-0 -array-add "$RIGHT_CMD_TO_RIGHT_ALT"
 
 # Wireless magic keyboard:
-defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handler_id-50 -array-add "$SETTING"
+defaults -currentHost delete -g com.apple.keyboard.modifiermapping.alt_handler_id-50
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handler_id-50 -array-add "$RIGHT_ALT_TO_RIGHT_CMD"
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.alt_handler_id-50 -array-add "$RIGHT_CMD_TO_RIGHT_ALT"
 
-# You can undo the changes by executing the following command and then logging off/on:
-# defaults -currentHost delete -g com.apple.keyboard.modifiermapping.$VENDOR_ID-$PRODUCT_ID-$KEYBOARD_NUMBER
-#
-# You can use this command to check the current settings:
-# defaults -currentHost read -g
+
+LEFT_ALT_TO_CTRL='
+<dict>
+	<key>HIDKeyboardModifierMappingDst</key><integer>30064771296</integer>
+	<key>HIDKeyboardModifierMappingSrc</key><integer>30064771298</integer>
+</dict>
+'
+
+# In StarCraft we need this for group zero.
+BACKTICK_TO_ZERO='
+<dict>
+	<key>HIDKeyboardModifierMappingDst</key><integer>30064771125</integer>
+	<key>HIDKeyboardModifierMappingSrc</key><integer>30064771111</integer>
+</dict>
+'
+
+ZERO_TO_BACKTICK='
+<dict>
+	<key>HIDKeyboardModifierMappingDst</key><integer>30064771111</integer>
+	<key>HIDKeyboardModifierMappingSrc</key><integer>30064771125</integer>
+</dict>
+'
+
+defaults -currentHost delete -g com.apple.keyboard.modifiermapping.1133-49938-0
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.1133-49938-0 -array-add "$LEFT_ALT_TO_CTRL"
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.1133-49938-0 -array-add "$BACKTICK_TO_ZERO"
+defaults -currentHost write -g com.apple.keyboard.modifiermapping.1133-49938-0 -array-add "$ZERO_TO_BACKTICK"
+
+defaults -currentHost read -g
