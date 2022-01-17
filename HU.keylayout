@@ -289,6 +289,7 @@
             <key code="43" output=";"/>
             <key code="44" output="*"/>
             <key code="45" output="}"/>
+            <key code="46" output="&#x003C;"/>
             <key code="50" output="&#x003C;"/>
         </keyMap>
 
@@ -318,6 +319,7 @@
             <key code="43" output=";"/>
             <key code="44" output="*"/>
             <key code="45" output="}"/>
+            <key code="46" output="&#x003C;"/>
             <key code="50" output="&#x003C;"/>
         </keyMap>
 
