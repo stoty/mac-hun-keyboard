@@ -283,8 +283,9 @@
             <key code="24" output="≠"/>
             <key code="26" output="`"/>
             <key code="32" output="μ"/>
-            <key code="34" output="í"/>
+            <key code="34" output="Í"/>
             <key code="37" output="£"/>
+            <key code="38" output="í"/>
             <key code="41" output="$"/>
             <key code="43" output=";"/>
             <key code="44" output="*"/>
@@ -315,6 +316,7 @@
             <key code="32" output="μ"/>
             <key code="34" output="Í"/>
             <key code="37" output="£"/>
+            <key code="38" output="Í"/>
             <key code="41" output="$"/>
             <key code="43" output=";"/>
             <key code="44" output="*"/>
